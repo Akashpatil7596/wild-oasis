@@ -106,7 +106,7 @@ export default function Page() {
                         placeholder="******************"
                     />
                     <p className="text-gray-600 text-xs italic">
-                        Make it as long and as crazy as you'd like
+                        Make it as long and as crazy as you&apos;d like
                     </p>
                 </div>
             </div>
