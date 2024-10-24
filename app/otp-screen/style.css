@@ -1,0 +1,12 @@
+.otp-box {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.otp-box h1 {
+   font-size: 20px;
+   font-weight: 600;
+}
