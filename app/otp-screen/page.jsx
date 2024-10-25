@@ -36,7 +36,7 @@ export default function Page() {
    return (
       <>
          <div className="otp-box">
-            <h1>Dial Your OTP Here 🤖</h1>
+            <h1>Type Your OTP Here 🤖</h1>
             <OTPInput
                value={otp}
                onChange={setOtp}
