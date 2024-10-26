@@ -35,27 +35,29 @@ export default function Page() {
 
    return (
       <>
-         <div className="otp-box">
-            <h1>Dial Your OTP Here 🤖</h1>
-            <OTPInput
-               value={otp}
-               onChange={setOtp}
-               numInputs={4}
-               // renderSeparator={<span> - </span>}
-               isInputNum={true}
-               renderInput={(props) => <input {...props} />}
-               inputStyle={{
-                  border: "2px solid grey",
-                  borderRadius: "8px",
-                  width: "54px",
-                  height: "54px",
-                  fontSize: "12px",
-                  color: "#000",
-                  fontWeight: "400",
-                  caretColor: "blue",
-                  margin: "0 10px",
-               }}
-            />
+         <div className="flex font-rbt justify-center items-center h-screen">
+            <div className="otp-box">
+               <h1>Dial Your OTP Here 🤖</h1>
+               <OTPInput
+                  value={otp}
+                  onChange={setOtp}
+                  numInputs={4}
+                  // renderSeparator={<span> - </span>}
+                  isInputNum={true}
+                  renderInput={(props) => <input {...props} />}
+                  inputStyle={{
+                     border: "2px solid grey",
+                     borderRadius: "8px",
+                     width: "54px",
+                     height: "54px",
+                     fontSize: "12px",
+                     color: "#000",
+                     fontWeight: "400",
+                     caretColor: "blue",
+                     margin: "0 10px",
+                  }}
+               />
+            </div>
          </div>
       </>
    );

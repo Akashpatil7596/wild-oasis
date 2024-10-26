@@ -7,24 +7,32 @@ const initialState = {
     successMessage: "",
     error: false,
     errorMessage: "",
+    data: "",
 };
 
 const loginSlice = createSlice({
     name: "login",
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        falseError(state, action) {
+            state.error = false;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(loginAsync.fulfilled, (state, action) => {
             state.success = action.payload.success;
             state.successMessage = action.payload.message;
+            state.data = action.payload.data;
             state.error = false;
             state.errorMessage = "";
         }).addCase(loginAsync.rejected, (state, action) => {
             state.error = true;
-            state.errorMessage = action.payload.message;
+            state.errorMessage = action.payload;
         });
     },
 });
+
+export const { falseError } = loginSlice.actions;
 
 export const loginAsync = createAsyncThunk(
     "login/loginAsync",
@@ -34,13 +42,12 @@ export const loginAsync = createAsyncThunk(
                 `${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`,
                 payload,
             );
-            console.log("res", res.data.success);
 
             if (res.data.success) {
                 return res.data;
             } else {
                 return rejectWithValue(
-                    res.data || "Failed to login",
+                    res?.data?.message || "Failed to login",
                 );
             }
         } catch (error) {
