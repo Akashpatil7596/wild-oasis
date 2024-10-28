@@ -62,8 +62,7 @@ const accountSlice = createSlice({
    },
 });
 
-export const { withdraw, requestLoan, payLoan, falseError } =
-   accountSlice.actions;
+export const { withdraw, requestLoan, payLoan, falseError } = accountSlice.actions;
 
 export function deposit(amount, currency) {
    // If currency is in USD
@@ -101,18 +100,13 @@ export const registerAsync = createAsyncThunk(
    "account/registerAsync",
    async (payload, { rejectWithValue }) => {
       try {
-         const res = await axios.post(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/auth`,
-            payload,
-         );
+         const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/auth`, payload);
          return res.data;
       } catch (error) {
          // Log error for debugging
          console.error("Registration error:", error);
          // Check for error response and return it, or default message
-         return rejectWithValue(
-            error.response?.data?.message[0] || "Failed to register",
-         );
+         return rejectWithValue(error.response?.data?.message[0] || "Failed to register");
       }
    },
 );

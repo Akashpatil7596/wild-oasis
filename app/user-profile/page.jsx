@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { fetchData } from "./userProfile.slice";
 import { toaster } from "../toaster/toasterSlice";
+import secureLocalStorage from "react-secure-storage";
 
 export default function Page() {
    const [loading, setLoading] = useState(true);
@@ -21,13 +22,14 @@ export default function Page() {
    );
 
    useEffect(() => {
-      const { _id, token } = JSON.parse(localStorage?.getItem("user"));
+      const { _id, token } = secureLocalStorage?.getItem("user");
       dispatch(fetchData({ id: _id, token }));
    }, []);
 
    useEffect(() => {
       if (error) {
          dispatch(toaster(false, errorMessage));
+
          router.push("/login");
       }
 

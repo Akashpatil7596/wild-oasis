@@ -6,15 +6,15 @@ import { useQuery } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { setLoading } from "./slice";
 import { useEffect, useState } from "react";
+import secureLocalStorage from "react-secure-storage";
 
 export default function Page() {
+   const [userProfile, setUserProfile] = useState(null);
 
-   const [userProfile, setUserProfile] = useState(null)
-
-   useEffect(()=>{
-      const { userProfile } = JSON.parse(localStorage?.getItem("user"));
-      setUserProfile(userProfile)
-   },[])
+   useEffect(() => {
+      const { userProfile } = secureLocalStorage?.getItem("user");
+      setUserProfile(userProfile);
+   }, []);
 
    return (
       <>

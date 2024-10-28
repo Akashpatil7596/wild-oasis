@@ -92,10 +92,13 @@ export default function Page() {
 
    return (
       <div className="relative h-screen font-rbt">
-         
          <div className="absolute top-4 right-4 flex space-x-4">
-            <Link className="bg-blue-500 text-white py-2 px-4 rounded" href={"/login"} >Login</Link>
-            <Link className="bg-green-500 text-white py-2 px-4 rounded" href={"/register-page"}>Register</Link>
+            <Link className="bg-blue-500 text-white py-2 px-4 rounded" href={"/login"}>
+               Login
+            </Link>
+            <Link className="bg-green-500 text-white py-2 px-4 rounded" href={"/register-page"}>
+               Register
+            </Link>
          </div>
 
          <div className="flex font-rbt justify-center items-center h-screen">
@@ -166,7 +169,6 @@ export default function Page() {
                         id="grid-image"
                         type="file"
                         onChange={(event) => {
-                           console.log(event.target.files[0]);
                            setSelectedImage(event.target.files[0]);
                         }}
                      />

@@ -5,12 +5,13 @@ import "./style.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { falseError, loginAsync } from "./slice";
+import { falseError, falseSuccess, loginAsync } from "./slice";
 import { useEffect } from "react";
 import { toaster } from "../toaster/toasterSlice";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import secureLocalStorage from "react-secure-storage";
 
 export default function Page() {
    const {
@@ -41,10 +42,12 @@ export default function Page() {
 
    useEffect(() => {
       if (success) {
-         localStorage.setItem("user", JSON.stringify(data));
+         secureLocalStorage.setItem("user", data);
+         // localStorage.setItem("user", JSON.stringify(data));
          Cookies.set("token", data?.token);
          dispatch(toaster(true, successMessage));
          router.push("/user-profile");
+         dispatch(falseSuccess());
       }
    }, [success]);
 
