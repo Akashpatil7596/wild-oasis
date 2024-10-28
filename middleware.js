@@ -6,7 +6,8 @@ export function middleware(request) {
    const token = request.cookies.get("token");
 
    if (
-      !token && request.nextUrl.pathname !== "/login" &&
+      !token &&
+      request.nextUrl.pathname !== "/login" &&
       request.nextUrl.pathname !== "/otp-screen" &&
       request.nextUrl.pathname !== "/register-page" &&
       !request.nextUrl.pathname.startsWith("/_next/")
@@ -35,8 +36,19 @@ export function middleware(request) {
       }
    }
 
+   if (request.nextUrl.pathname === "/navbar") {
+      if (!token) {
+         return NextResponse.redirect(new URL("/login", request.url));
+      }
+
+      return NextResponse.redirect(new URL("/user-profile", request.url));
+   }
+
    if (request.nextUrl.pathname === "/") {
-      return NextResponse.redirect(new URL("/register-page", request.url));
+      if (!token) {
+         return NextResponse.redirect(new URL("/login", request.url));
+      }
+      return NextResponse.redirect(new URL("/user-profile", request.url));
    }
 
    return NextResponse.next();

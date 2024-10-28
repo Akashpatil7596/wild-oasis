@@ -3,21 +3,39 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
+
+import { fetchData } from "./userProfile.slice";
+import { toaster } from "../toaster/toasterSlice";
 
 export default function Page() {
-   const [loading, setLoading] = useState(false);
+   const [loading, setLoading] = useState(true);
 
-   const user = JSON?.parse(localStorage?.getItem("user"));
+   const router = useRouter();
 
-   const { isLoading, error, data } = useQuery({
-      queryKey: ["users"],
-      queryFn: () =>
-         fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/${user?._id}`).then((res) => res.json()),
-   });
+   const dispatch = useDispatch();
+
+   const { error, errorMessage, success, successMessage, data } = useSelector(
+      (state) => state.userProfileSlice,
+   );
 
    useEffect(() => {
-      setLoading(isLoading);
-   }, [isLoading, data]);
+      const { _id, token } = JSON.parse(localStorage?.getItem("user"));
+      dispatch(fetchData({ id: _id, token }));
+   }, []);
+
+   useEffect(() => {
+      if (error) {
+         dispatch(toaster(false, errorMessage));
+         router.push("/login");
+      }
+
+      if (success) {
+         dispatch(toaster(true, successMessage));
+         setLoading(false);
+      }
+   }, [error, success]);
 
    return (
       <>
